@@ -14,7 +14,7 @@ async def on_ready():
     print(bot.user.id)
 
 @bot.command()
-async def stage(ctx, arg):
+async def stage(arg):
     api_url = "https://spla2.yuu26.com/schedule"
     headers = { "User-Agent" :  "DiscordSplatoon2StageBot/0.1 (@tokoro10g)" }
 
