@@ -14,18 +14,20 @@ async def on_ready():
     print(bot.user.id)
 
 @bot.command()
-async def stage():
+async def stage(ctx, arg):
     api_url = "https://spla2.yuu26.com/schedule"
     headers = { "User-Agent" :  "DiscordSplatoon2StageBot/0.1 (@tokoro10g)" }
 
     result = json.loads(urllib.request.urlopen(urllib.request.Request(api_url, None, headers)).read())["result"]
 
-    str_gachi_rule  = result["gachi"][0]["rule"]
-    str_league_rule = result["league"][0]["rule"]
+    idx = 1 if arg == "next" else 0
 
-    str_regular = ", ".join(result["regular"][0]["maps"])
-    str_gachi   = ", ".join(result["gachi"][0]["maps"])
-    str_league  = ", ".join(result["league"][0]["maps"])
+    str_gachi_rule  = result["gachi"][idx]["rule"]
+    str_league_rule = result["league"][idx]["rule"]
+
+    str_regular = ", ".join(result["regular"][idx]["maps"])
+    str_gachi   = ", ".join(result["gachi"][idx]["maps"])
+    str_league  = ", ".join(result["league"][idx]["maps"])
 
     await bot.say('''\
 ```asciidoc
