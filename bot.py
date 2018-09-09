@@ -22,6 +22,9 @@ async def stage(arg):
 
     idx = 1 if arg == "next" else 0
 
+    str_time_start = result["gachi"][idx]["start"][11:]
+    str_time_end = result["gachi"][idx]["end"][11:]
+
     str_gachi_rule  = result["gachi"][idx]["rule"]
     str_league_rule = result["league"][idx]["rule"]
 
@@ -31,6 +34,8 @@ async def stage(arg):
 
     await bot.say('''\
 ```asciidoc
+%s 〜 %s
+
 [レギュラーマッチ]
 %s
 
@@ -40,6 +45,6 @@ async def stage(arg):
 [リーグマッチ(%s)]
 %s
 ```\
-        ''' % (str_regular, str_gachi_rule, str_gachi, str_league_rule, str_league))
+        ''' % (str_time_start, str_time_end, str_regular, str_gachi_rule, str_gachi, str_league_rule, str_league))
 
 bot.run(BOT_TOKEN)
