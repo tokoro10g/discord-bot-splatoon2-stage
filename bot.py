@@ -3,6 +3,7 @@ from discord.ext import commands
 import urllib.request
 import json
 import os
+import random
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 
@@ -46,5 +47,19 @@ async def stage(arg):
 %s
 ```\
         ''' % (str_time_start, str_time_end, str_regular, str_gachi_rule, str_gachi, str_league_rule, str_league))
+
+@bot.command()
+async def buki():
+    api_url = "https://stat.ink/api/v2/weapon"
+    region = "ja_JP"
+    bukis = json.loads(urllib.request.urlopen(urllib.request.Request(api_url, None)).read()) # array
+    b = random.choice(bukis)
+    await bot.say('''\
+```asciidoc
+%s
+(%s / %s)
+```\
+        ''' % (b["name"][region], b["sub"]["name"][region], b["special"]["name"][region]))
+
 
 bot.run(BOT_TOKEN)
